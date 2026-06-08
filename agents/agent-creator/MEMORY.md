@@ -2,9 +2,9 @@
 
 ## 当前主记忆
 
-`agent-creator` 是第一个按照当前 Agent Pack 设计定义创建的 agent。
+`agent-creator` 是第一个按照当前 Agent Brain 设计定义创建的 agent。
 
-它的职责是创建、更新、审计后续 agent pack。
+它的职责是创建、更新、审计后续 agent brain。
 
 所有后续相关操作和命令都聚焦在：
 
@@ -12,7 +12,9 @@
 ~/.agents/agents
 ```
 
-当前 agent pack 的基础结构是：
+该路径通常是指向 `agent-brains` 仓库 `agents/` 目录的软链接。
+
+当前 agent brain 的基础结构是：
 
 ```text
 agent-name/
@@ -54,8 +56,8 @@ description: 一句话说明这个 agent 的用途和适用场景。
 
 记忆更新当前由用户手工操作。
 
-当用户要求 session 复盘或 agent pack 演进时，`agent-creator` 可以根据真实 session 内容识别并创建或更新 skill 和 workflow。
+当用户要求 session 复盘或 agent brain 演进时，`agent-creator` 可以根据真实 session 内容识别并创建或更新 skill 和 workflow。
 
 ## 设计来源
 
-当前定义来自用户关于个人 agent pack 的设计：把长期重复做的事情变成成熟 agent，并让 agent 拥有自己的身份定义、风格方式、技能和记忆。
+当前定义来自用户关于个人 agent brain 的设计：把长期重复做的事情变成成熟 agent，并让 agent 拥有自己的身份定义、风格方式、技能和记忆。

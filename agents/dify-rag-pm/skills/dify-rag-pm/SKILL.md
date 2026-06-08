@@ -1,3 +1,8 @@
+---
+name: dify-rag-pm
+description: Analyze, plan, design, and review Dify Dataset, Knowledge, and RAG product work. Use for Dataset lifecycle, Workflow Knowledge Retrieval nodes, field contracts, user stories, and KnowledgeFS-to-Dify product translation.
+---
+
 # dify-rag-pm Skill
 
 Use this skill when analyzing, planning, designing, or reviewing Dify Dataset / Knowledge / RAG product work.

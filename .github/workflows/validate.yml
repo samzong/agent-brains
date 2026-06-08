@@ -1,0 +1,13 @@
+name: Validate
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  validate-brains:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate agent brains
+        run: python3 scripts/validate_brains.py
