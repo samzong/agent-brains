@@ -28,6 +28,14 @@ Built-in loader: [`skills/agent-loader/`](./skills/agent-loader/). Copy or symli
 
 Discovery checks repo-local `.agents/agents` directories from the current working directory up to the repository root, then `$HOME/.agents/agents`. It reads only `AGENTS.md` frontmatter and reports `name`, `description`, `scope`, and `path`. On load, `agent-loader` resolves the agent path, then reads `AGENTS.md`, `SOUL.md`, and `MEMORY.md` first. `memories/`, `skills/`, and `workflows/` are lazy-loaded only when the task needs them or core files point to them.
 
+## Optional local routing
+
+For Codex users, [`codex-agents-local`](https://github.com/samzong/codex-agents-local) can add a private `AGENTS.local.md` prompt that nudges Codex to choose an agent brain only when useful:
+
+```md
+When a task is domain-specific or recurring enough to benefit from a personal agent brain, proactively use `agent-loader` to list/resolve candidates, load the single best-matching agent core before working, ask only if the match is ambiguous, and keep skills/workflows/memories lazy-loaded.
+```
+
 ## Brain structure
 
 Each brain lives under `agents/`:
