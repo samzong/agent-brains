@@ -22,11 +22,11 @@ See [docs/AGENT_BRAIN_SPEC.md](./docs/AGENT_BRAIN_SPEC.md) for the full specific
 
 | Name | Purpose |
 |------|---------|
-| `agent-loader` | List and load agent brains from `~/.agents/agents` |
+| `agent-loader` | List and load repo-scoped and user-scoped agent brains |
 
 Built-in loader: [`skills/agent-loader/`](./skills/agent-loader/). Copy or symlink it into your agent client's global skills directory to use it outside this repo.
 
-On load, `agent-loader` reads `AGENTS.md`, `SOUL.md`, and `MEMORY.md` first. `memories/`, `skills/`, and `workflows/` are lazy-loaded only when the task needs them or core files point to them.
+Discovery checks repo-local `.agents/agents` directories from the current working directory up to the repository root, then `$HOME/.agents/agents`. It reads only `AGENTS.md` frontmatter and reports `name`, `description`, `scope`, and `path`. On load, `agent-loader` resolves the agent path, then reads `AGENTS.md`, `SOUL.md`, and `MEMORY.md` first. `memories/`, `skills/`, and `workflows/` are lazy-loaded only when the task needs them or core files point to them.
 
 ## Brain structure
 

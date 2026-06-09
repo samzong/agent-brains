@@ -18,7 +18,7 @@ Global Skills are meant for reuse across agents; `skills/` and `workflows/` insi
 
 ```mermaid
 flowchart TB
-    loader["agent-loader<br/>List available brains<br/>Load one brain by name"]
+    loader["agent-loader<br/>Discover repo/user brains<br/>Load one brain by name"]
     brain["agent-name/<br/>Session domain brain<br/>identity / taste / memory"]
 
     loader -->|"load by name"| brain
@@ -138,21 +138,35 @@ To use it as a global skill, copy or link that directory into your agent client'
 
 It is not an agent brain itself—it is the loading entry point for the agent brain system.
 
-`agent-loader` supports two operations:
+`agent-loader` supports three operations:
 
 - List currently available agents
+- Resolve a specified agent by name
 - Load a specified agent by name
 
-When listing agents, `agent-loader` reads each agent's `AGENTS.md` frontmatter and shows:
+Discovery uses two scopes:
+
+```text
+REPO: $CWD/.agents/agents up to $REPO_ROOT/.agents/agents
+USER: $HOME/.agents/agents
+```
+
+Repo scope is searched from the current working directory upward to the repository root. User scope is searched after repo scope. If the same agent name exists in multiple locations, the first discovered agent wins.
+
+`AGENT_BRAINS_ROOT` and the loader script's `--root` option override repo/user discovery and use `custom` scope.
+
+When listing or resolving agents, `agent-loader` reads only each agent's `AGENTS.md` frontmatter and shows:
 
 - `name`
 - `description`
+- `scope`
+- `path`
 
-When loading an agent, `agent-loader` reads in order:
+When loading an agent, `agent-loader` first resolves the agent path, then reads in order:
 
-1. `AGENTS.md`
-2. `SOUL.md`
-3. `MEMORY.md`
+1. `path/AGENTS.md`
+2. `path/SOUL.md`
+3. `path/MEMORY.md`
 
 By default, do not read all files under `memories/`.
 
