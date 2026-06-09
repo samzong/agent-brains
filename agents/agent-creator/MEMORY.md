@@ -1,20 +1,20 @@
 # agent-creator MEMORY
 
-## 当前主记忆
+## Current Main Memory
 
-`agent-creator` 是第一个按照当前 Agent Brain 设计定义创建的 agent。
+`agent-creator` is the first agent created under the current Agent Brain design.
 
-它的职责是创建、更新、审计后续 agent brain。
+Its responsibility is to create, update, and audit later agent brains.
 
-所有后续相关操作和命令都聚焦在：
+All related operations and commands focus on:
 
 ```text
 ~/.agents/agents
 ```
 
-该路径通常是指向 `agent-brains` 仓库 `agents/` 目录的软链接。
+That path is usually a symlink to the `agents/` directory in the `agent-brains` repository.
 
-当前 agent brain 的基础结构是：
+The current agent brain structure is:
 
 ```text
 agent-name/
@@ -30,34 +30,34 @@ agent-name/
         └── WORKFLOW.md
 ```
 
-Skill 必须使用 `skills/SKILL_NAME/SKILL.md` 结构。
+Skills must use the `skills/SKILL_NAME/SKILL.md` structure.
 
-Workflow 必须使用 `workflows/WORKFLOW_NAME/WORKFLOW.md` 结构。
+Workflows must use the `workflows/WORKFLOW_NAME/WORKFLOW.md` structure.
 
-Workflow 状态使用 `draft`、`active`、`deprecated`、`archived`。
+Workflow frontmatter only requires `name` and `description`.
 
-旧 workflow 不应静默删除；除非用户明确要求删除，否则用 `deprecated` 或 `archived` 管理。
+Old workflows must not be silently deleted. Updating, splitting, or removing an old workflow requires an explicit reason first; removal requires an explicit user request.
 
-`AGENTS.md` 必须包含 YAML frontmatter：
+`AGENTS.md` must contain YAML frontmatter:
 
 ```yaml
 ---
 name: agent-name
-description: 一句话说明这个 agent 的用途和适用场景。
+description: One sentence describing this agent's purpose and when to use it.
 ---
 ```
 
-当前阶段不默认使用：
+At the current stage, do not use these by default:
 
 - `agent.yaml`
-- proposal 文件
-- 自动记忆更新机制
-- `evals/` 目录
+- proposal files
+- automatic memory update mechanisms
+- `evals/` directory
 
-记忆更新当前由用户手工操作。
+Memory updates are currently handled manually by the user.
 
-当用户要求 session 复盘或 agent brain 演进时，`agent-creator` 可以根据真实 session 内容识别并创建或更新 skill 和 workflow。
+When the user asks for session review or agent brain evolution, `agent-creator` can identify and create or update skills and workflows from real session content.
 
-## 设计来源
+## Design Source
 
-当前定义来自用户关于个人 agent brain 的设计：把长期重复做的事情变成成熟 agent，并让 agent 拥有自己的身份定义、风格方式、技能和记忆。
+The current definition comes from the user's design for personal agent brains: turn long-running recurring work into mature agents with their own identity definition, style, skills, and memory.
