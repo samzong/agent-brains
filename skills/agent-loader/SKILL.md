@@ -1,19 +1,22 @@
 ---
 name: agent-loader
-description: Load or list personal agent brains from ~/.agents/agents. Use when the user asks to load an agent by name, list available agents, inspect agent descriptions or workflows, or start a session or task with a personal agent brain.
+description: Load or list repo-scoped and user-scoped agent brains. Use when the user asks to load an agent by name, list available agents, inspect agent descriptions or workflows, or start a session or task with a personal agent brain.
 ---
 
 # Agent Loader
 
-Use this skill to list and load personal agent brains from:
+Use this skill to list and load agent brains from two scopes:
 
 ```text
-~/.agents/agents
+REPO: $CWD/.agents/agents up to $REPO_ROOT/.agents/agents
+USER: $HOME/.agents/agents
 ```
 
-Recommended setup: clone this repository to `~/.agents/agent-brains`, then symlink `~/.agents/agents` to `~/.agents/agent-brains/agents`.
+Repo scope is searched from the current working directory upward to the repository root. User scope is searched after repo scope. If the same agent name exists in multiple places, the first discovered agent wins.
 
-The directory can be overridden with `AGENT_BRAINS_ROOT` or the script's `--root` option.
+For a global setup, clone this repository to `~/.agents/agent-brains`, then symlink `~/.agents/agents` to `~/.agents/agent-brains/agents`.
+
+The discovery roots can be overridden with `AGENT_BRAINS_ROOT` or the script's `--root` option. Overrides use `custom` scope.
 
 ## Modes
 
@@ -27,7 +30,7 @@ Run the bundled script:
 uv run python skills/agent-loader/scripts/list_agents.py
 ```
 
-Report each agent's `name` and `description` from its `AGENTS.md` frontmatter. If an agent has no description, say so directly.
+Report each agent's `name`, `description`, `scope`, and `path`. Discovery only reads `AGENTS.md` frontmatter; it does not read the body or any other core file. If an agent has no description, say so directly.
 
 ### List Workflows
 
@@ -39,17 +42,29 @@ Run:
 uv run python skills/agent-loader/scripts/list_agents.py --agent <name> --workflows
 ```
 
-Report each workflow's `name`, `description`, and `status` from its `WORKFLOW.md` frontmatter. Do not read workflow bodies just to list workflows.
+The script resolves `<name>` through the same repo/user discovery order, then reads only each workflow's `WORKFLOW.md` frontmatter. Report each workflow's `name`, `description`, `status`, and `path`. Do not read workflow bodies just to list workflows.
 
 ### Load An Agent
 
 Use when the user names an agent or asks to start working as an agent.
 
-For agent `<name>`, read in this order:
+First resolve the agent path:
 
-1. `~/.agents/agents/<name>/AGENTS.md`
-2. `~/.agents/agents/<name>/SOUL.md`
-3. `~/.agents/agents/<name>/MEMORY.md`
+```bash
+uv run python skills/agent-loader/scripts/list_agents.py --agent <name>
+```
+
+The script prints:
+
+```text
+name<TAB>description<TAB>scope<TAB>path
+```
+
+For the resolved `path`, read in this order:
+
+1. `path/AGENTS.md`
+2. `path/SOUL.md`
+3. `path/MEMORY.md`
 
 Then acknowledge the active agent and summarize:
 
@@ -67,7 +82,7 @@ Do not read every `workflows/*/WORKFLOW.md` by default. Use the workflow frontma
 
 ## Validation
 
-If the agent directory does not exist, list available agents instead of guessing.
+If the agent cannot be resolved, list available agents instead of guessing.
 
 If `AGENTS.md`, `SOUL.md`, or `MEMORY.md` is missing, report the missing file and load only the existing files.
 
