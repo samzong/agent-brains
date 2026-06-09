@@ -5,7 +5,6 @@ import sys
 
 ROOT = Path(__file__).resolve().parents[1]
 AGENTS_ROOT = ROOT / "agents"
-VALID_WORKFLOW_STATUSES = {"draft", "active", "deprecated", "archived"}
 NAME_RE = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
 
 
@@ -86,15 +85,9 @@ def validate_workflow_dir(workflows_dir, errors):
         if not workflow_md.exists():
             continue
 
-        meta = validate_frontmatter(workflow_md, ("name", "description", "status"), errors)
+        meta = validate_frontmatter(workflow_md, ("name", "description"), errors)
         if meta.get("name"):
             validate_name(workflow_md, meta["name"], child.name, errors)
-        if meta.get("status"):
-            require(
-                meta["status"] in VALID_WORKFLOW_STATUSES,
-                f"{workflow_md.relative_to(ROOT)} status `{meta['status']}` is invalid",
-                errors,
-            )
 
 
 def brain_dirs():

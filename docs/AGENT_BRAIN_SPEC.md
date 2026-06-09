@@ -118,11 +118,8 @@ A workflow is an SOP abstraction for **a fixed behavior under a recurring, stabl
 ---
 name: workflow-name
 description: One sentence describing this workflow's purpose and when to use it.
-status: draft
 ---
 ```
-
-`status` must be one of `draft`, `active`, `deprecated`, or `archived`.
 
 ## Loading Entry Point
 
@@ -200,7 +197,7 @@ When the user asks to review a real session or evolve an agent brain, `agent-cre
 - Reusable capabilities that should become skills
 - End-to-end processes that should become workflows
 - Agent definitions, main memory, sub-memories, skills, or workflows that should be updated
-- Old workflows that should be marked `deprecated` or `archived`
+- Old workflows that should be updated, split, or removed with explicit user approval
 
 These evolutions must be based on real session content or explicit user description—not invented from nothing.
 

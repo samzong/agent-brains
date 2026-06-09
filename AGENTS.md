@@ -10,7 +10,7 @@ This repository stores portable agent-brain definitions and supporting loader to
 - `agents/<agent-name>/workflows/<workflow-name>/WORKFLOW.md` stores brain-specific SOPs.
 - `skills/agent-loader/` contains the shared loader skill and its helper script.
 - `docs/AGENT_BRAIN_SPEC.md` defines the canonical brain format.
-- `scripts/validate_brains.py` validates required files, frontmatter, names, and workflow statuses.
+- `scripts/validate_brains.py` validates required files, frontmatter, names, and workflow layout.
 
 ## Build, Test, and Development Commands
 
@@ -30,13 +30,13 @@ Agent, skill, and workflow names must be lowercase kebab-case, matching their di
 
 - Brain `AGENTS.md`: `name`, `description`
 - `SKILL.md`: `name`, `description`
-- `WORKFLOW.md`: `name`, `description`, `status`
+- `WORKFLOW.md`: `name`, `description`
 
-Workflow `status` must be one of `draft`, `active`, `deprecated`, or `archived`.
+Workflow lifecycle is managed by explicit updates or removals.
 
 ## Testing Guidelines
 
-The validation script is the test suite. It checks required structure, YAML frontmatter, directory/name consistency, skill layout, and workflow status values. Add new coverage to `scripts/validate_brains.py` when adding new repository-level format rules.
+The validation script is the test suite. It checks required structure, YAML frontmatter, directory/name consistency, skill layout, and workflow layout. Add new coverage to `scripts/validate_brains.py` when adding new repository-level format rules.
 
 ## Commit & Pull Request Guidelines
 

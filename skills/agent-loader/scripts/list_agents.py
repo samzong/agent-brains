@@ -178,15 +178,14 @@ def list_workflows(roots, agent_name, explicit_root=None):
         meta = parse_frontmatter(workflow_md)
         name = meta.get("name") or workflow_dir.name
         description = meta.get("description") or "(missing description)"
-        status = meta.get("status") or "(missing status)"
-        rows.append((name, description, status, str(workflow_dir)))
+        rows.append((name, description, str(workflow_dir)))
 
     if not rows:
         print(f"No workflows found for agent: {agent_name}")
         return 0
 
-    for name, description, status, path in rows:
-        print(f"{name}\t{status}\t{description}\t{path}")
+    for name, description, path in rows:
+        print(f"{name}\t{description}\t{path}")
 
     return 0
 

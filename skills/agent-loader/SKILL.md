@@ -42,7 +42,7 @@ Run:
 uv run python skills/agent-loader/scripts/list_agents.py --agent <name> --workflows
 ```
 
-The script resolves `<name>` through the same repo/user discovery order, then reads only each workflow's `WORKFLOW.md` frontmatter. Report each workflow's `name`, `description`, `status`, and `path`. Do not read workflow bodies just to list workflows.
+The script resolves `<name>` through the same repo/user discovery order, then reads only each workflow's `WORKFLOW.md` frontmatter. Report each workflow's `name`, `description`, and `path`. Do not read workflow bodies just to list workflows.
 
 ### Load An Agent
 
@@ -92,7 +92,7 @@ If `skills/` contains files directly under it instead of `skills/SKILL_NAME/SKIL
 
 If `workflows/` contains files directly under it instead of `workflows/WORKFLOW_NAME/WORKFLOW.md`, report that the agent brain violates the current workflow layout.
 
-If a `WORKFLOW.md` lacks frontmatter with `name`, `description`, and `status`, report that the workflow needs metadata cleanup.
+If a `WORKFLOW.md` lacks frontmatter with `name` and `description`, report that the workflow needs metadata cleanup.
 
 ## Boundaries
 
